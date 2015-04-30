@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="war" name="lollipop-bbs:war">
+    <output-path>$PROJECT_DIR$/target</output-path>
+    <root id="archive" name="lollipop-bbs.war">
+      <element id="artifact" artifact-name="lollipop-bbs:war exploded" />
+    </root>
+  </artifact>
+</component>

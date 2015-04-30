@@ -1,0 +1,39 @@
+<ehcache>
+    <diskStore path="java.io.tmpdir"/>
+
+    <defaultCache
+            maxElementsInMemory="500"
+            eternal="false"
+            timeToIdleSeconds="600"
+            timeToLiveSeconds="36000"
+            overflowToDisk="true"
+            diskPersistent="false"
+            maxElementsOnDisk="10000000"
+            diskExpiryThreadIntervalSeconds="120"
+            memoryStoreEvictionPolicy="LRU"/>
+
+	<!-- search cache --> 
+    <cache name="org.hibernate.cache.StandardQueryCache" 
+            maxElementsInMemory="10000" 
+            eternal="false" 
+            timeToIdleSeconds="300" 
+            timeToLiveSeconds="4200" 
+            overflowToDisk="true" /> 
+ 
+    <!-- second level cache --> 
+    <cache  name="org.hibernate.cache.UpdateTimestampsCache" 
+        maxElementsInMemory="5000" 
+        eternal="true" 
+        timeToIdleSeconds="0" 
+        timeToLiveSeconds="0" 
+        overflowToDisk="false" />
+
+	<!-- model cache --> 
+    <cache name="com.crm.model.User"   
+        maxElementsInMemory="1000" 
+        eternal="false" 
+        timeToIdleSeconds="100" 
+        timeToLiveSeconds="4200" 
+        overflowToDisk="true" />  
+            
+</ehcache>

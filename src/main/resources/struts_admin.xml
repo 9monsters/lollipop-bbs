@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN" 
+          				"http://struts.apache.org/dtds/struts-2.0.dtd">
+          
+<struts>
+	<package name="admin" extends="json-default" namespace="/admin">
+		<interceptors>
+			<!-- login intercepter -->
+			<interceptor name="authorityInterceptor" class="com.just.lollipop.bbs.web.interceptor.admin.AuthorityInterceptor"/>
+			
+			<interceptor-stack name="authorityStack">
+				<interceptor-ref name="defaultStack"></interceptor-ref>
+				<interceptor-ref name="authorityInterceptor"></interceptor-ref>
+			</interceptor-stack>
+		</interceptors>
+		
+		<default-interceptor-ref name="authorityStack" />
+		
+		<global-results>
+			<result name="nologin">/WEB-INF/jsp/admin/nologin.jsp</result>
+			<result name="noauth">/WEB-INF/jsp/admin/noauth.jsp</result>
+			<result name="error">/WEB-INF/jsp/admin/common/globalException.jsp</result>
+		</global-results>
+		
+		<global-exception-mappings>
+			<exception-mapping result="error" exception="com.just.lollipop.bbs.exception.PtException"></exception-mapping>
+		</global-exception-mappings>
+		
+		<action name="*Action" class="com.just.lollipop.bbs.web.action.admin.{1}Action">
+			<result name="JSON" type="json">
+				<param name="excludeProperties">.*Application$,.*ClassBasedModel$,.*Temp$,.*request,.*session</param>
+				<param name="includeProperties"></param>
+				<param name="excludeNullProperties">false</param>
+				<param name="ignoreHierarchy">false</param>
+			</result>
+			<result name="PAGES">/WEB-INF/jsp/admin/${definedMethodTemp}.jsp</result>
+			<result name="STREAM" type="stream">
+				<param name="contentType">image/jpeg</param>
+				<param name="inputName">inputStream</param>
+			</result>
+			<result name="DOWNLOAD" type="stream">
+               <param name="contentType">application/x-download; charset=utf-8</param>
+              <param name="inputName">inputStream</param>
+              <param name="contentDisposition">attachment;filename="${realFileName}"</param>
+              <param name="bufferSize">4096</param>
+           	</result>
+		</action>
+		
+		<action name="*_page">
+			<result>/WEB-INF/jsp/admin/{1}.jsp</result>
+		</action>
+	</package>
+</struts>

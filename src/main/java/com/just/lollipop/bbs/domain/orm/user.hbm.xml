@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+        "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+        "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping package="com.just.lollipop.bbs.domain.orm">
+
+    <class name="com.just.lollipop.bbs.domain.User" table="FORUM_USER_TABLE">
+        <id name="id" type="java.lang.Integer" column="user_id">
+            <generator class="identity"/>
+        </id>
+        <property name="userName" type="java.lang.String">
+            <column name="username" length="255" not-null="true" unique="true"/>
+        </property>
+        <property name="userPass" type="java.lang.String">
+            <column name="password" length="255" not-null="true"/>
+        </property>
+        <property name="sexy" type="java.lang.Integer">
+            <column name="sexy" length="1" not-null="true"/>
+        </property>
+        <property name="phone" type="java.lang.String">
+            <column name="phone" length="255" not-null="true"/>
+        </property>
+        <property name="email" type="java.lang.String">
+            <column name="email" length="255" not-null="true"/>
+        </property>
+        <property name="status" type="java.lang.Integer">
+            <column name="status" length="1" not-null="true"/>
+        </property>
+        <property name="role" type="java.lang.Integer">
+            <column name="role" length="1" not-null="true"/>
+        </property>
+        <property name="registTime" type="java.util.Date">
+            <column name="regist_time" not-null="true"/>
+        </property>
+        <set name="articles" inverse="true" lazy="true">
+            <key column="user_id" not-null="false"/>
+            <one-to-many class="com.just.lollipop.bbs.domain.Article"/>
+        </set>
+    </class>
+</hibernate-mapping>

@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN" 
+          				"http://struts.apache.org/dtds/struts-2.0.dtd">
+          
+<struts>
+    <constant name="struts.objectFactory" value="spring" />
+	<constant name="struts.i18n.encoding" value="UTF-8" />
+	<constant name="struts.action.extension" value="jsp,jspx,action" />
+	<constant name="struts.serve.static.browserCache" value="false" />
+	<constant name="struts.enable.DynamicMethodInvocation" value="true" />
+	<constant name="struts.custom.i18n.resources" value="struts_message" />
+	<constant name="struts.multipart.saveDir" value="~/downloadTemp/" />
+	<constant name="struts.multipart.maxSize" value="1000000000" />
+	<constant name="struts.objectFactory.spring.autoWire" value="name" />
+	
+	<bean type="com.opensymphony.xwork2.ObjectFactory"
+		class="com.just.lollipop.bbs.web.spring.StrutsSpringObjectFactory" />
+	
+	<package name="lollipop" extends="struts-default" namespace="/">
+		<interceptors>
+			<!-- login intercepter -->
+			<interceptor name="authorityInterceptor" class="com.just.lollipop.bbs.web.interceptor.AuthorityInterceptor"/>
+			<interceptor name="ajaxAuthorityInterceptor" class="com.just.lollipop.bbs.web.interceptor.AjaxAuthorityInterceptor"/>
+			
+			<interceptor-stack name="authorityStack">
+				<interceptor-ref name="defaultStack"></interceptor-ref>
+				<interceptor-ref name="authorityInterceptor"></interceptor-ref>
+			</interceptor-stack>
+			
+			<interceptor-stack name="ajaxAuthorityStack">
+				<interceptor-ref name="defaultStack"></interceptor-ref>
+				<interceptor-ref name="ajaxAuthorityInterceptor"></interceptor-ref>
+			</interceptor-stack>
+		</interceptors>
+		
+		<global-results>
+			<result name="login">/WEB-INF/jsp/login.jsp</result>
+			<result name="error">/WEB-INF/jsp/error.jsp</result>
+			<result name="json">/WEB-INF/jsp/json.jsp</result>
+		</global-results>
+		
+		<global-exception-mappings>
+			<exception-mapping result="error" exception="java.lang.Exception" />
+		</global-exception-mappings>
+		
+		<action name="*AjaxAction" class="com.just.lollipop.bbs.web.action.{1}AjaxAction">
+			<interceptor-ref name="ajaxAuthorityStack"></interceptor-ref>
+		</action>
+		
+		<action name="*Action" class="com.just.lollipop.bbs.web.action.{1}Action">
+			<interceptor-ref name="authorityStack"></interceptor-ref>
+			<result name="PAGES">/WEB-INF/jsp/${definedMethodTemp}.jsp</result>
+			<result name="REDIRECT_ACTION" type="redirect">${definedMethodTemp}</result>
+		</action>
+		
+		<action name="*_page">
+			<interceptor-ref name="authorityStack"></interceptor-ref>
+			<result>/WEB-INF/jsp/{1}.jsp</result>
+		</action>
+	</package>
+	
+	<include file="struts_admin.xml"></include>
+</struts>

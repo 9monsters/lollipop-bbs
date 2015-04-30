@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:p="http://www.springframework.org/schema/p"
+       xmlns:util="http://www.springframework.org/schema/util"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:tx="http://www.springframework.org/schema/tx"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+							http://www.springframework.org/schema/beans/spring-beans-2.5.xsd
+							http://www.springframework.org/schema/context
+							http://www.springframework.org/schema/context/spring-context-2.5.xsd
+							http://www.springframework.org/schema/tx
+							http://www.springframework.org/schema/tx/spring-tx-2.5.xsd
+							http://www.springframework.org/schema/aop
+							http://www.springframework.org/schema/aop/spring-aop-2.5.xsd
+							http://www.springframework.org/schema/util
+							http://www.springframework.org/schema/util/spring-util-2.5.xsd">
+
+    <!-- 启动@aspectJ支持 -->
+    <aop:aspectj-autoproxy/>
+
+    <!-- 使用annotation 自动注册bean,并保证@Required,@Autowired的属性被注入 -->
+    <context:annotation-config/>
+    <context:component-scan base-package="com.just.lollipop.bbs"/>
+
+    <bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource" destroy-method="close"
+          p:driverClass="com.mysql.jdbc.Driver"
+          p:jdbcUrl="jdbc:mysql://localhost:3306/forum?useUnicode=true&amp;characterEncoding=utf-8"
+          p:user="root"
+          p:password="mysql"
+          p:maxPoolSize="40"
+          p:minPoolSize="2"
+          p:initialPoolSize="1"
+          p:maxIdleTime="20"/>
+
+    <bean id="sessionFactory"
+          class="org.springframework.orm.hibernate3.LocalSessionFactoryBean"
+          p:dataSource-ref="dataSource"
+          p:mappingResources-ref="mappingResources"/>
+
+    <!-- 配置ORM映射文件 -->
+    <util:list id="mappingResources" list-class="java.util.LinkedList">
+        <value>com/just/lollipop/bbs/domain/orm/user.hbm.xml</value>
+        <value>com/just/lollipop/bbs/domain/orm/article.hbm.xml</value>
+        <value>com/just/lollipop/bbs/domain/orm/board.hbm.xml</value>
+        <value>com/just/lollipop/bbs/domain/orm/column.hbm.xml</value>
+    </util:list>
+
+    <bean id="transactionManager"
+          class="org.springframework.orm.hibernate3.HibernateTransactionManager"
+          p:sessionFactory-ref="sessionFactory"/>
+
+    <tx:advice id="txAdvice" transaction-manager="transactionManager">
+        <tx:attributes>
+            <tx:method name="get*" read-only="true"/>
+            <tx:method name="set*" read-only="true"/>
+            <tx:method name="*"
+                       timeout="-1"
+                       propagation="REQUIRED"
+                       isolation="DEFAULT"
+                       rollback-for="java.lang.RuntimeException,com.just.lollipop.bbs.exception.PtException"/>
+        </tx:attributes>
+    </tx:advice>
+
+    <aop:config>
+        <aop:pointcut id="txPointcut" expression="execution(* com.just.lollipop.bbs.service.impl.*.*(..))"/>
+        <aop:advisor advice-ref="txAdvice" pointcut-ref="txPointcut"/>
+    </aop:config>
+
+    <!-- 定义业务层日志处理的AOP -->
+    <bean class="com.just.lollipop.bbs.common.LogAdvice"></bean>
+
+    <bean id="hibernteSupport"
+          abstract="true"
+          lazy-init="true">
+        <property name="sessionFactory" ref="sessionFactory"></property>
+        <property name="cacheQueries" value="true"></property>
+    </bean>
+
+    <bean id="userDao" class="com.just.lollipop.bbs.dao.impl.UserDaoImpl"
+          parent="hibernteSupport"/>
+
+    <bean id="articleDao" class="com.just.lollipop.bbs.dao.impl.ArticleDaoImpl"
+          parent="hibernteSupport"/>
+
+    <bean id="boardDao" class="com.just.lollipop.bbs.dao.impl.BoardDaoImpl"
+          parent="hibernteSupport"/>
+
+    <bean id="columnDao" class="com.just.lollipop.bbs.dao.impl.ColumnDaoImpl"
+          parent="hibernteSupport"/>
+
+</beans>

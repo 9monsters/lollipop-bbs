@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+        "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+        "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping package="com.just.lollipop.bbs.domain.orm">
+
+    <class name="com.just.lollipop.bbs.domain.Article" table="FORUM_ARTICLE_TABLE">
+        <id name="id" type="java.lang.Integer" column="article_id">
+            <generator class="identity"/>
+        </id>
+
+        <property name="title" type="java.lang.String">
+            <column name="title" length="255" not-null="false"/>
+        </property>
+
+        <property name="content" type="java.lang.String">
+            <column name="content"/>
+        </property>
+
+        <property name="isTop" type="java.lang.Integer">
+            <column name="is_top" length="1" not-null="false"/>
+        </property>
+
+        <property name="totalReply" type="java.lang.Integer">
+            <column name="total_reply" not-null="false"/>
+        </property>
+
+        <property name="createTime" type="java.util.Date">
+            <column name="create_time" not-null="true"/>
+        </property>
+
+        <property name="lastUpdateTime" type="java.util.Date">
+            <column name="last_update_time" not-null="false"/>
+        </property>
+
+        <property name="isThemeArticle" type="java.lang.Integer">
+            <column name="is_theme_article" length="1" not-null="true"/>
+        </property>
+
+        <many-to-one name="createPerson" class="com.just.lollipop.bbs.domain.User" lazy="false">
+            <column name="create_person_id" not-null="false"/>
+        </many-to-one>
+
+        <many-to-one name="lastUpdatePerson" class="com.just.lollipop.bbs.domain.User" lazy="false">
+            <column name="last_update_person_id" not-null="false"/>
+        </many-to-one>
+
+        <many-to-one name="discussionBoard" class="com.just.lollipop.bbs.domain.Board" lazy="false">
+            <column name="discussion_board_id" not-null="true"/>
+        </many-to-one>
+
+        <many-to-one name="themeArticle" class="com.just.lollipop.bbs.domain.Article" lazy="false">
+            <column name="theme_article_id" not-null="false"/>
+        </many-to-one>
+
+        <set name="childArticles" inverse="true" lazy="true" cascade="delete-orphan">
+            <key column="theme_article_id" not-null="false"/>
+            <one-to-many class="com.just.lollipop.bbs.domain.Article"/>
+        </set>
+    </class>
+</hibernate-mapping>

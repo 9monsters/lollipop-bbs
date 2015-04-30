@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+        "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+        "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping package="com.just.lollipop.bbs.domain.orm">
+
+    <class name="com.just.lollipop.bbs.domain.Board" table="FORUM_BOARD_TABLE">
+        <id name="id" type="java.lang.Integer" column="board_id">
+            <generator class="identity"/>
+        </id>
+
+        <property name="name" type="java.lang.String">
+            <column name="board_name" length="255" not-null="true"/>
+        </property>
+
+        <property name="createTime" type="java.util.Date">
+            <column name="create_time" not-null="true"/>
+        </property>
+
+        <many-to-one name="createPerson" class="com.just.lollipop.bbs.domain.User" lazy="false"
+                     column="create_person_id"/>
+
+        <many-to-one name="moderator" class="com.just.lollipop.bbs.domain.User" lazy="false"
+                     column="moderator_id"/>
+
+        <many-to-one name="column" class="com.just.lollipop.bbs.domain.Column" lazy="false"
+                     column="column_id" not-null="false"/>
+
+        <set name="articles" inverse="true" lazy="true" cascade="delete-orphan">
+            <key column="discussion_board_id" not-null="false"/>
+            <one-to-many class="com.just.lollipop.bbs.domain.Article"/>
+        </set>
+    </class>
+
+</hibernate-mapping>
