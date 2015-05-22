@@ -118,7 +118,7 @@
 <div class="ad"></div>
 <div class="copyright">
 		<span style="text-align:center;">Copyright &copy;2013 - 2020
-			&nbsp;&nbsp;&nbsp;Powered By 钟礼文  <a href="" target="_blank">Version 1.0.0</a></span>
+			&nbsp;&nbsp;&nbsp;Powered By Lollipop  <a href="" target="_blank">Version 1.0.0</a></span>
 </div>
 <script type="text/javascript">
     jQuery.validator.addMethod("isTel", function (value, element) {

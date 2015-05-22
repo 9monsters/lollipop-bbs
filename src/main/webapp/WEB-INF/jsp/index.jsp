@@ -24,11 +24,24 @@
 <!--公告和版面列表-->
 <div class="mainbox">
     <div class="rollboder">
+        <%--<ul>--%>
+            <%--<li id="scrollDiv" class="rollleft">--%>
+                <%--<h3 style="float:left; padding-left:5px;">公告栏：</h3>--%>
+                <%--<ul>--%>
+                    <%--<li><a href="javascript:void(-1);">233333333333333333333333333333</a></li>--%>
+                <%--</ul>--%>
+            <%--</li>--%>
+        <%--</ul>--%>
         <ul>
             <li id="scrollDiv" class="rollleft">
                 <h3 style="float:left; padding-left:5px;">公告栏：</h3>
                 <ul>
-                    <li><a href="javascript:void(-1);">233333333333333333333333333333</a></li>
+                    <li><a href="javascript:void(0);" target="_blank">2013年春季学期语音答疑安排的通知</a></li>
+                    <li><a href="javascript:void(0);" target="_blank">关于做好北京大学网络教育专升本在校生一学历信息核查工作的通知</a></li>
+                    <li><a href="javascript:void(0);" target="_blank">2013年春季学期“北大网院文化讲坛”讲座通知</a></li>
+                    <li><a href="javascript:void(0);" target="_blank">关于网络教育公共基础课全国统考机（网）考各级服务器和考试机软硬件配置升级的通知</a></li>
+                    <li><a href="javascript:void(0);" target="_blank">关于统考考点全面使用第二代居民身份证阅读器及安装使用身份证签到管理系统的通知</a></li>
+                    <li><a href="javascript:void(0);" target="_blank">关于发布网络教育统考课程《计算机应用基础》、《大学英语》、《高等数学》和《大学语文》考试大纲（2013年修订版）的通知</a></li>
                 </ul>
             </li>
         </ul>
@@ -131,6 +144,9 @@
         }
         return true;
     }
+
+
+
 </script>
 </body>
 </html>

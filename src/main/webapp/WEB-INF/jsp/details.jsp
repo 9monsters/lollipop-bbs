@@ -20,7 +20,7 @@
 		border: 1px solid #ccc;
 		font-size: 14.5px;
 		margin: 2px;
-		background: #aaffdd;
+		background: #6cf;
 	}
 </style>
 <script type="text/javascript">

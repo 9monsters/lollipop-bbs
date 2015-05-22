@@ -64,8 +64,7 @@ public class CommonAction extends ActionSupport {
 	
 	/**
 	 * 根据虚拟路径获取其真实路径
-	 * 
-	 * @param virtualPath
+	 *
 	 * @return
 	 */
 	public String getServerPath() {
