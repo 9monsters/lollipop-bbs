@@ -47,7 +47,7 @@ public class ArticleDaoImpl extends HibernateDaoImpl<Article>
             sb.append("AND a.discussionBoard.moderator.id = ? ");
             params.add(u.getId());
         }
-        sb.append("ORDER BY createTime DESC ");
+        sb.append("ORDER BY createTime ASC ");
         return this.findByPage(sb.toString(), start, pagesize, params.toArray());
     }
 
@@ -151,7 +151,7 @@ public class ArticleDaoImpl extends HibernateDaoImpl<Article>
         StringBuilder sb = new StringBuilder();
         sb.append("FROM Article ar ");
         sb.append("WHERE ar.id = ? OR ar.themeArticle.id = ? ");
-        sb.append("ORDER BY ar.isThemeArticle ASC, ar.createTime DESC ");
+        sb.append("ORDER BY ar.isThemeArticle ASC, ar.createTime ASC ");
         return this.findByPage(sb.toString(), start, pageSize
                 , new Object[]{themeArtileId, themeArtileId});
     }
@@ -179,7 +179,7 @@ public class ArticleDaoImpl extends HibernateDaoImpl<Article>
         StringBuilder sb = new StringBuilder();
         sb.append("FROM Article ar ");
         sb.append("WHERE ar.isThemeArticle = 1 AND ar.discussionBoard.id = ? AND ar.id < ? ");
-        sb.append("ORDER BY ar.id DESC ");
+        sb.append("ORDER BY ar.id ASC ");
         List<Article> list = this.find(sb.toString(), new Object[]{boardId, themeArticleId});
         return list != null && list.size() > 0 ? list.get(0) : null;
     }
@@ -200,7 +200,7 @@ public class ArticleDaoImpl extends HibernateDaoImpl<Article>
         StringBuilder sb = new StringBuilder();
         sb.append("FROM Article ar ");
         sb.append("WHERE ar.isThemeArticle = 1 AND ar.createPerson.id = ? ");
-        sb.append("ORDER BY ar.createTime DESC ");
+        sb.append("ORDER BY ar.createTime ASC ");
         return this.findByPage(sb.toString(), start, pageSize
                 , new Object[]{userId});
     }

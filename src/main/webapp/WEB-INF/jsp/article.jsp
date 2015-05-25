@@ -23,7 +23,7 @@
 		border: 1px solid #ccc;
 		font-size: 14.5px;
 		margin: 2px;
-		background: #aaffdd;
+		background: #6cf;
 	}
 </style>
 <script type="text/javascript">
@@ -46,7 +46,7 @@
 				<a href="${pageContext.request.contextPath}/IndexAction!index.action">课程论坛首页</a>&nbsp;>>&nbsp;
 				<a href="${pageContext.request.contextPath}/IndexAction!forwardBoardPage.action?columnVo.id=${articleVo.discussionBoard.column.id}">${articleVo.discussionBoard.name}</a>&nbsp;>>&nbsp;
 				<a href="${pageContext.request.contextPath}/IndexAction!forwardDetailPage.action?boardVo.id=${articleVo.discussionBoard.id}">帖子列表</a>&nbsp;>>&nbsp;
-				关于毕业论文
+                <a href="#">${articleVo.title}</a>
 			</div>
 			<div class="notice">
 				<form id="searchForm" action="${pageContext.request.contextPath}/IndexAction!search.action" 
@@ -110,7 +110,7 @@
 					<td style="line-height: 120%;" class="inforight" valign="top">
 						<b style="line-height: 15px; font-size: 12px;">${title}</b>&nbsp;&nbsp;
 						<span style="line-height: 20px;" class="font10">
-							Post By：<s:date name="%{createTime}" format="yyyy-MM-dd HH:mm:ss" /> 
+							发表于：<s:date name="%{createTime}" format="yyyy-MM-dd HH:mm:ss" />
 						</span>
 						
 						<br><br>
