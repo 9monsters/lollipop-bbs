@@ -16,7 +16,7 @@
     <jsp.version>2.1</jsp.version>
     <hibernate.version>3.2.5.ga</hibernate.version>
     <javassist.version>3.11.0.GA</javassist.version>
-    <struts2.version>2.1.8.1</struts2.version>
+    <struts2.version>2.5.22</struts2.version>
     <xwork.version>2.1.6</xwork.version>
     <freemarker.version>2.3.16</freemarker.version>
     <aspectj.version>1.6.7</aspectj.version>
