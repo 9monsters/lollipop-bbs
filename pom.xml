@@ -20,7 +20,7 @@
     <xwork.version>2.1.6</xwork.version>
     <freemarker.version>2.3.16</freemarker.version>
     <aspectj.version>1.6.7</aspectj.version>
-    <mysql.version>5.1.15</mysql.version>
+    <mysql.version>8.0.16</mysql.version>
     <c3p0.version>0.9.1.2</c3p0.version>
     <ecache.version>1.2.4</ecache.version>
     <slf4j.version>1.6.0</slf4j.version>
