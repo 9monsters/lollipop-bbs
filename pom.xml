@@ -31,7 +31,7 @@
     <lucene-version>3.6.2</lucene-version>
     <jta-version>1.1</jta-version>
     <quartz-version>1.6.0</quartz-version>
-    <quartz-scheduler-version>1.8.3</quartz-scheduler-version>
+    <quartz-scheduler-version>2.3.2</quartz-scheduler-version>
     <jta-version>1.1</jta-version>
   </properties>
 
