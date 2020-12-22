@@ -10,7 +10,7 @@
   <description>论坛程序设计</description>
 
   <properties>
-    <junit.version>4.10</junit.version>
+    <junit.version>4.13.1</junit.version>
     <spring.version>5.2.2.RELEASE</spring.version>
     <servlet.version>2.5</servlet.version>
     <jsp.version>2.1</jsp.version>
